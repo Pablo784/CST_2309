@@ -1,0 +1,161 @@
+<!-- How to write a comment in HTML-->
+<!-- Pablo Vasquez - CST 2309 - Fall 2023 Semester -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style> 
+    
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: 10px;
+}
+    
+body {
+  background-color: darkkhaki;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+font-family: monospace;
+font-size: 22px;
+}
+    
+h2 {
+  text-align: center;
+font-family: monospace;
+font-size: 22px;
+}
+    
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+    
+.container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+text-align: center;
+        margin-top: 20px;
+}
+
+#speedValue {
+  display: none;
+}
+    
+.text {
+  color: black;
+  font-size: 22px;
+  padding: 8px 12px;
+  position: center;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+    
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 850px;
+}
+    
+</style>
+</head>
+<body>
+<h1>Image Slider</h1>
+<h2>Different Anime Characters</h2>
+    
+<canvas id="myCanvas" width="800" height="500" style="border:12px solid #778899;"></canvas>
+    
+<div class="slideshow-container">
+<div id="caption" class="text"></div>
+
+<input id="speed" name="speed" type="range" min="1" max="5" value="3">
+
+<p style="color: black"><span id="speedValue"></span></p></div>
+    
+<script type="text/javascript">
+    
+var slider = document.getElementById("speed");
+var output = document.getElementById("speedValue");
+var speedMod= 3;
+let interval; //will be set by setInterval
+
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+output.innerHTML = this.value;
+speedMod = this.value;
+clearInterval(interval);
+interval = setInterval(draw_next_image, (6-speedMod)*1000); 
+};
+ 
+
+var image0 = new Image();
+image0.src = "https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/02/Midoriya-and-All-Might-in-My-hero-academia-Cropped.jpg";
+
+    
+var image1 = new Image();
+image1.src = "https://e0.pxfuel.com/wallpapers/1012/527/desktop-wallpaper-takumi-fujiwara.jpg";
+    
+var image2 = new Image();
+image2.src = "https://i.blogs.es/b59f21/doraemon/840_560.jpeg";
+    
+var image3 = new Image();
+image3.src = "https://a.storyblok.com/f/178900/960x540/ffef181a46/naruto.jpg";
+    
+var image4 = new Image();
+image4.src = "https://www.rappler.com/tachyon/2022/08/one-punch-man.png";
+    
+var image5 = new Image();
+image5.src = "https://www.mundodeportivo.com/alfabeta/hero/2023/05/tanjiro-kamado-diseno-original.jpg?width=1200";
+
+    
+images = new Array(image0, image1, image2, image3,image4,image5);
+
+
+var counter = 0; 
+var ctx;
+function draw(){
+    myCanvas = document.getElementById("myCanvas");
+    ctx = myCanvas.getContext("2d");         
+               
+}
+    
+var captions = [
+"Izuku Midoriya (LEFT) and All Might (RIGHT) - My Hero Academia",
+"Takumi Fujiwara - Initial D",
+"Doraemon",
+"Naruto Uzumaki",
+"Master Saitama - One Punch Man",
+"Tanjiro Kamado - Demon Slayer"
+];
+    
+function draw_next_image(){
+    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    ctx.drawImage(images[counter], 0, 0);
+    document.getElementById("caption").innerHTML = captions[counter];
+    counter++;
+   if (counter==images.length) {counter=0;}
+    ;    
+}
+clearInterval(interval);
+interval = setInterval(draw_next_image, (6-speedMod)*1000);
+window.onload = draw;
+ document.getElementById("caption").innerHTML = captions[0];
+</script>
